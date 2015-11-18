@@ -1,0 +1,58 @@
+<!DOCTYPE>
+<html ng-app="myApp">
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="/stylesheets/bootstrap-theme.min.css">
+
+  <title>myRetail</title>
+</head>
+<body>
+
+  <div class="container-fluid" ng-controller="AppCtrl">
+    <br>
+    <h1>myRetail Products</h1>
+    <br>
+    <fieldset>
+    <legend>Add New Product</legend>
+    <input type="text" ng-model="title" placeholder="Title">
+    <input type="text" ng-model="desc" placeholder="Description">
+    <input type="number" ng-model="price" placeholder="Price">
+    <button class="btn btn_primary" ng-click="add(title, desc, price)">Add Product</button>
+    </fieldset>
+      <br>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Product ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Photo</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="product in productlist | filter : paginate">
+          <td>{{product._id}}</td>
+          <td>{{product.title}}</td>
+          <td>{{product.description}}</td>
+          <td>{{product.price | currency}}</td>
+          <td><img ng-src="{{product.imageUrl}}" width="100px" height="100px"></td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination total-items="totalItems" ng-model="currentPage"
+                max-size="5" boundary-links="true"
+                items-per-page="numPerPage" class="pagination-sm"
+                ng-show="totalItems > 0">
+    </pagination>
+  </div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
+<script src="controllers/controller.js"></script>
+  <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+  <script src="http://code.angularjs.org/1.3.12/angular-resource.js"></script>
+</body>
+</html>
